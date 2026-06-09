@@ -62,13 +62,17 @@ class PublicScaffoldTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             plugin = json.loads((output / "plugin.json").read_text(encoding="utf-8"))
-            hooks = json.loads((output / "hooks.json").read_text(encoding="utf-8"))
+            hooks = json.loads(
+                (output / "hooks" / "hooks.json").read_text(encoding="utf-8")
+            )
 
             self.assertEqual(plugin["name"], "mednotes")
             self.assertTrue((output / "skills" / "mednotes-study.md").exists())
             self.assertTrue((output / "agents" / "study-coach.md").exists())
             self.assertTrue((output / "scripts" / "public_guard.py").exists())
-            self.assertIn("PreToolUse", hooks["hooks"])
+            self.assertTrue((output / "hooks.json").exists())
+            self.assertIn("mednotes-public-guard", hooks)
+            self.assertIn("PreToolUse", hooks["mednotes-public-guard"])
 
 
 if __name__ == "__main__":

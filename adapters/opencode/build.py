@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the Antigravity plugin bundle from core sources."""
+"""Build the opencode npm package directory from shared core sources."""
 
 import argparse
 import json
@@ -9,9 +9,9 @@ from typing import Iterable
 
 
 ROOT = Path(__file__).resolve().parents[2]
+ADAPTER = ROOT / "adapters" / "opencode"
 CORE = ROOT / "core"
-ADAPTER = ROOT / "adapters" / "antigravity"
-DEFAULT_OUTPUT = ROOT / "dist" / "antigravity" / "mednotes"
+DEFAULT_OUTPUT = ROOT / "dist" / "opencode" / "package"
 
 
 def _copy_tree(source: Path, target: Path) -> None:
@@ -36,20 +36,17 @@ def build(output: Path = DEFAULT_OUTPUT) -> Path:
         shutil.rmtree(output)
     output.mkdir(parents=True)
 
-    _copy_files(("plugin.json", "hooks.json"), output)
-    (output / "hooks").mkdir()
-    shutil.copy2(ADAPTER / "hooks.json", output / "hooks" / "hooks.json")
-    _copy_tree(CORE / "skills", output / "skills")
-    _copy_tree(CORE / "agents", output / "agents")
-    _copy_tree(CORE / "scripts", output / "scripts")
+    _copy_files(("package.json", "README.md"), output)
+    _copy_tree(ADAPTER / "src", output / "src")
+    _copy_tree(CORE, output / "core")
 
     manifest = {
-        "bundle": "mednotes",
+        "package": "@augusto/mednotes",
         "output": str(output),
         "source": str(ROOT),
         "files": sorted(str(path.relative_to(output)) for path in output.rglob("*")),
     }
-    (output / "build-manifest.json").write_text(
+    (output / "package-manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
@@ -61,7 +58,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     output = build(args.output)
-    print(f"Built Antigravity bundle: {output}")
+    print(f"Built opencode package directory: {output}")
     return 0
 
 

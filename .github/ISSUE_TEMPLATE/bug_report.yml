@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem with a MedNotes adapter, skill, or hook.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please do not include patient-identifying information.
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Antigravity CLI
+        - opencode
+        - core script
+        - documentation
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: List the exact commands or actions that reproduce the problem.
+      placeholder: |
+        1. Run ...
+        2. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, runtime version, and MedNotes version or commit.
+      placeholder: |
+        macOS 15.x
+        agy 1.x or opencode 1.x
+        mednotes commit ...
