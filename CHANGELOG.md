@@ -2,7 +2,7 @@
 
 All notable changes will be documented here.
 
-## 0.1.0 - Unreleased
+## 0.1.0 - 2026-06-11
 
 - Bootstrap public `core/` plus `adapters/` repository shape.
 - Add Antigravity plugin bundle builder.
