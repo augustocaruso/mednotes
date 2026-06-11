@@ -7,7 +7,17 @@ Releases are tag-driven and produce two artifacts:
 
 ## Local preflight
 
+Releases start from the private canonical repository:
+
 ```bash
+cd /Users/augustocaruso/Documents/mednotes-private
+python3 scripts/export_public.py --destination /Users/augustocaruso/Documents/building-in-public
+```
+
+Then verify the generated public checkout:
+
+```bash
+cd /Users/augustocaruso/Documents/building-in-public
 python3 scripts/verify.py
 ```
 

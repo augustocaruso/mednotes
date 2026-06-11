@@ -2,9 +2,12 @@
 
 [![CI](https://github.com/augustocaruso/mednotes/actions/workflows/ci.yml/badge.svg)](https://github.com/augustocaruso/mednotes/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-bootstrap-blue)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/status-public_export-blue)](CHANGELOG.md)
 
 Public medical-study skills, agents, and hooks for terminal AI workflows.
+
+This repository is generated from a private canonical repository. The public
+tree contains only files promoted through the MedNotes allowlist export.
 
 `mednotes` is built for one practical goal: help medical students turn public
 study material into clearer, safer, more testable understanding. It does not

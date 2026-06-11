@@ -1,6 +1,6 @@
 {
   "name": "@augusto/mednotes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "opencode adapter for public MedNotes skills and hooks.",
   "type": "module",
   "homepage": "https://github.com/augustocaruso/mednotes#readme",

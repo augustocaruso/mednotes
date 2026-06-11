@@ -1,5 +1,9 @@
 # Architecture
 
+This public repository is generated from `public/mednotes/` in the private
+canonical repository. Public files are edited there first, exported here, and
+then released from this checkout.
+
 MedNotes uses one source tree and multiple distribution adapters.
 
 ## Core
