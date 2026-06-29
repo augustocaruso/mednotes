@@ -1,0 +1,79 @@
+{
+  "hooks": {
+    "BeforeAgent": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "name": "mednotes-fsm-context",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" inject-agent-directive-before-agent",
+            "timeout": 3000,
+            "description": "Injects the active MedNotes FSM directive into the agent context when a workflow card is active."
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "matcher": "^mcp_anki(?:-mcp)?_.*",
+        "hooks": [
+          {
+            "name": "mednotes-ensure-anki",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" ensure-anki-before",
+            "timeout": 10000,
+            "description": "Optionally starts Anki before Anki MCP tool use when MEDNOTES_ANKI_AUTO_START=1."
+          }
+        ]
+      },
+      {
+        "matcher": "^(write_to_file|replace_file_content|multi_replace_file_content|run_command|write_file|Write|replace|Edit|MultiEdit|run_shell_command|run_shell|ShellTool|Bash|Shell|powershell|PowerShell|pwsh|Pwsh)$",
+        "hooks": [
+          {
+            "name": "mednotes-fsm-tool-guard",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" guard-agent-directive-before-tool",
+            "timeout": 3000,
+            "description": "Blocks P0 tool behavior that contradicts an active MedNotes FSM directive."
+          },
+          {
+            "name": "mednotes-vault-guard",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" guard-vault-before",
+            "timeout": 5000,
+            "description": "Blocks Gemini CLI vault mutations unless vault_git.py opened an active restoration-point guard."
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "^(run_command|run_shell_command|run_shell|ShellTool|Bash|Shell|powershell|PowerShell|pwsh|Pwsh)$",
+        "hooks": [
+          {
+            "name": "mednotes-fsm-capture",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" capture-agent-directive-after-tool",
+            "timeout": 3000,
+            "description": "Captures agent_directive from official MedNotes workflow JSON outputs."
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "name": "mednotes-fsm-final-report-guard",
+            "type": "command",
+            "command": "node \"${extensionPath}${/}scripts${/}hooks${/}mednotes_hook.mjs\" validate-agent-directive-after-agent",
+            "timeout": 3000,
+            "description": "Prevents final reports when the active MedNotes FSM directive says the workflow must continue."
+          }
+        ]
+      }
+    ]
+  }
+}

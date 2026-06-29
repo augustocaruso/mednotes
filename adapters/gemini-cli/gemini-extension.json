@@ -1,0 +1,14 @@
+{
+  "name": "medical-notes-workbench",
+  "version": "0.1.0",
+  "description": "Gemini CLI workbench for creating, organizing, and processing medical Markdown notes for Obsidian.",
+  "contextFileName": "GEMINI.md",
+  "settings": [
+    {
+      "name": "SerpAPI key",
+      "envVar": "SERPAPI_KEY",
+      "description": "Optional Google Images search key. Get one at https://serpapi.com/ by creating an account and copying the API key from your dashboard. Leave blank to use only Wikimedia.",
+      "sensitive": true
+    }
+  ]
+}

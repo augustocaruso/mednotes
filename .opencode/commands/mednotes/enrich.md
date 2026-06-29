@@ -1,0 +1,27 @@
+---
+description: "Enriquece uma ou mais notas medicas Markdown com imagens."
+---
+
+<!-- Generated from commands/mednotes/enrich.toml. Do not edit directly. -->
+
+Enriqueça notas médicas Markdown com imagens.
+
+Argumentos do usuário: $ARGUMENTS
+
+Use a skill `enrich-medical-note` e `.opencode/mednotes/skills/obsidian-ops/SKILL.md`.
+Use `.opencode/mednotes/docs/workflow-output-contract.md` para a resposta final.
+
+Invariantes do launcher:
+- contrato tipado: `/mednotes:enrich` é um apply visual, não uma reescrita de
+  conteúdo. A decisão operacional deve vir do resultado tipado do enricher e da
+  proteção do vault, nunca de texto solto do agente.
+- Identifique arquivos `.md`, diretórios, globs e menções `@...`; peça caminho se não houver alvo.
+- Execute o orquestrador canônico `scripts/enrich_notes.py` com todos os alvos em uma invocação.
+- Use `uv run python`, o config persistente `~/.mednotes/config.toml` com `[paths].wiki_dir`, e `UV_PROJECT_ENVIRONMENT` apontando para a venv persistente quando estiver em instalação da extensão. A pasta `~/.gemini/extensions/medical-notes-workbench` é bundle auto-updatable, não lugar para estado do usuário.
+- Use `--force` somente se o usuário pedir refazer.
+- Mostre prévia quando houver mutação relevante e só aplique com confirmação
+  quando houver risco de sobrescrita, alvo ambíguo ou mudança em lote.
+- não edite texto clínico fora dos blocos de imagem/caption/frontmatter visual do enricher.
+- Se o ambiente Python/config estiver quebrado no Windows, rode/peça `/mednotes:setup` ou `.\scripts\reset_windows_python_uv.ps1`; não edite scripts do enricher como workaround.
+- Não despeje logs brutos se o usuário não pedir; ao final, destaque notas,
+  imagens inseridas, fontes, pulos, falhas e caminhos.

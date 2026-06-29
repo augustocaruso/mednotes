@@ -1,0 +1,23 @@
+<div class="mnw-shell mnw-cloze">
+  <span class="mnw-deck" data-deck="{{Deck}}">{{Deck}}</span>
+  <div class="mnw-back">{{cloze:Texto}}</div>
+  {{#Verso Extra}}
+  <hr class="mnw-divider">
+  <div class="mnw-extra">{{Verso Extra}}</div>
+  {{/Verso Extra}}
+  {{#Obsidian}}
+  <div class="mnw-footer">
+    <a class="mnw-obsidian" href="{{text:Obsidian}}">Abrir no Obsidian</a>
+  </div>
+  {{/Obsidian}}
+</div>
+<script>
+  (function () {
+    var nodes = document.querySelectorAll(".mnw-deck[data-deck]");
+    for (var i = 0; i < nodes.length; i++) {
+      var raw = nodes[i].getAttribute("data-deck") || "";
+      var parts = raw.split("::").filter(Boolean);
+      nodes[i].textContent = parts.slice(-2).join(" · ");
+    }
+  })();
+</script>

@@ -1,0 +1,45 @@
+{
+  "name": "mednotes-opencode",
+  "version": "0.1.0",
+  "description": "MedNotes plugin for OpenCode: FSM-first medical notes workflows for Obsidian and Anki.",
+  "type": "module",
+  "private": false,
+  "main": "./.opencode/plugins/mednotes-fsm.mjs",
+  "exports": {
+    ".": "./.opencode/plugins/mednotes-fsm.mjs"
+  },
+  "bin": {
+    "mednotes-opencode": "./bin/mednotes-opencode.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    ".opencode",
+    "AGENTS.md",
+    "README.md",
+    "adapters",
+    "bin",
+    "contracts",
+    "core"
+  ],
+  "keywords": [
+    "opencode",
+    "mednotes",
+    "obsidian",
+    "anki",
+    "medical-notes"
+  ],
+  "engines": {
+    "node": ">=20.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustocaruso/mednotes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/augustocaruso/mednotes/issues"
+  },
+  "homepage": "https://github.com/augustocaruso/mednotes#readme",
+  "license": "UNLICENSED"
+}

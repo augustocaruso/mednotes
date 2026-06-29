@@ -1,0 +1,27 @@
+---
+description: "Gerencia biblioteca local de imagens extraidas de PDFs."
+---
+
+<!-- Generated from commands/mednotes/pdf-library.toml. Do not edit directly. -->
+
+Abra a biblioteca local de imagens de PDFs para enriquecer notas médicas.
+
+Argumentos do usuário: $ARGUMENTS
+
+Use a skill `pdf-library`. Use também `.opencode/mednotes/docs/workflow-output-contract.md`
+para responder com resumo legível, prévia, confirmação e retomada oficial.
+
+Invariantes do launcher:
+- contrato tipado: `pdf-library insert` é uma operação canônica preview/apply.
+  O apply só pode materializar mudanças visual-only: embed de imagem, legenda
+  `Figura:` e frontmatter visual `images_*`.
+- Trate o comando público como experiência guiada: confira o ambiente,
+  prepare automaticamente quando for seguro e só peça ação humana quando houver
+  bloqueio real.
+- Não ensine subcomandos, flags ou termos técnicos por padrão. Fale em
+  preparar ambiente, mostrar prévia, nada alterado ainda, confirmar e aplicar.
+- A TUI abre inline no terminal atual por padrão.
+- Não envie PDF, OCR bruto, imagens ou conteúdo clínico para telemetria.
+- Inserção exige prévia e confirmação explícita antes de mutar nota.
+- Se qualquer mudança clínica/textual aparecer entre a prévia e o apply,
+  bloqueie como mutação não visual inesperada e preserve a nota.

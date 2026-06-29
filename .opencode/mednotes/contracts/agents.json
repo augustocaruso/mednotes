@@ -1,0 +1,116 @@
+{
+  "agents": [
+    {
+      "description": "Semantic raw-chat triager for the Medical Notes Workbench process-chats workflow. Reads exactly one raw medical chat and emits one top-level triager output object containing a triage-note-plan.v2 for the durable semantic units found in that raw chat. Does not decide existing-coverage, merge, or canonical winner.",
+      "display_name": "Medical Chat Triager",
+      "id": "med-chat-triager",
+      "kind": "local",
+      "max_turns": 12,
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.triage-note-plan.v2",
+        "medical-notes-workbench.subagent-run-receipt.v1"
+      ],
+      "source_files": [
+        "agents/med-chat-triager.md"
+      ],
+      "temperature": 0.15,
+      "timeout_mins": 12,
+      "tools": [
+        "read_file"
+      ]
+    },
+    {
+      "description": "Make medical Anki flashcards from notes/chats/material using Twenty Rules + user Anki MCP.",
+      "display_name": "Medical Flashcard Maker",
+      "id": "med-flashcard-maker",
+      "kind": "local",
+      "max_turns": 18,
+      "model": "antigravity/gemini-3.1-pro",
+      "model_tier": "specialist",
+      "runtime_contracts": [
+        "medical-notes-workbench.flashcards-fsm-result.v1"
+      ],
+      "source_files": [
+        "agents/med-flashcard-maker.md"
+      ],
+      "temperature": 0.2,
+      "timeout_mins": 12,
+      "tools": [
+        "read_file",
+        "mcp_anki-mcp_listDecks",
+        "mcp_anki-mcp_createDeck",
+        "mcp_anki-mcp_modelNames",
+        "mcp_anki-mcp_modelFieldNames",
+        "mcp_anki-mcp_addNotes",
+        "mcp_anki-mcp_addNote",
+        "mcp_anki-mcp_findNotes"
+      ]
+    },
+    {
+      "description": "Writes Wiki_Medicina notes from triaged raw chats using note_plan, taxonomy, provenance, and Padrão Ouro.",
+      "display_name": "Medical Knowledge Architect",
+      "id": "med-knowledge-architect",
+      "kind": "local",
+      "max_turns": 24,
+      "model": "antigravity/gemini-3.1-pro",
+      "model_tier": "specialist",
+      "runtime_contracts": [
+        "medical-notes-workbench.packaged-agent-template.v1",
+        "medical-notes-workbench.specialist-task-run-receipt.v1"
+      ],
+      "source_files": [
+        "agents/med-knowledge-architect.md"
+      ],
+      "temperature": 0.35,
+      "timeout_mins": 20,
+      "tools": [
+        "read_file",
+        "write_file"
+      ]
+    },
+    {
+      "description": "Curates vocabulary DB meanings, aliases, contextual link work items, and graph semantics.",
+      "display_name": "Medical Link Graph Curator",
+      "id": "med-link-graph-curator",
+      "kind": "local",
+      "max_turns": 12,
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.note-semantic-ingestion.v1"
+      ],
+      "source_files": [
+        "agents/med-link-graph-curator.md"
+      ],
+      "temperature": 0.1,
+      "timeout_mins": 10,
+      "tools": [
+        "read_file",
+        "write_file"
+      ]
+    },
+    {
+      "description": "Operational gate after publish-batch dry-run; checks manifest, destinations, collisions, batch consistency, raw status timing, final linker plan.",
+      "display_name": "Medical Publish Guard",
+      "id": "med-publish-guard",
+      "kind": "local",
+      "max_turns": 8,
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.publish-operation-result.v1"
+      ],
+      "source_files": [
+        "agents/med-publish-guard.md"
+      ],
+      "temperature": 0.0,
+      "timeout_mins": 6,
+      "tools": [
+        "read_file"
+      ]
+    }
+  ],
+  "schema": "mednotes.agent-contracts.v1"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "med-chat-triager": {
+      "model": "antigravity/gemini-3.5-flash",
+      "reasoningEffort": "medium"
+    },
+    "med-flashcard-maker": {
+      "model": "antigravity/gemini-3.1-pro",
+      "reasoningEffort": "high"
+    },
+    "med-knowledge-architect": {
+      "model": "antigravity/gemini-3.1-pro",
+      "reasoningEffort": "high"
+    },
+    "med-link-graph-curator": {
+      "model": "antigravity/gemini-3.5-flash",
+      "reasoningEffort": "high"
+    },
+    "med-publish-guard": {
+      "model": "antigravity/gemini-3.5-flash",
+      "reasoningEffort": "high"
+    }
+  },
+  "instructions": [
+    ".opencode/mednotes/AGENTS.md"
+  ],
+  "plugin": [
+    "./plugins/mednotes-fsm.mjs"
+  ]
+}

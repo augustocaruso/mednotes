@@ -1,0 +1,182 @@
+/* Medical Notes Workbench — Anki cards (Medicina + Medicina Cloze)
+ * Direção: editorial, com serif na pergunta/resposta e sans nos detalhes,
+ * paleta warm stone, sem botões/pills agressivos. */
+
+.card {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #1c1917;
+  background: #fdfcfa;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mnw-shell {
+  max-width: 680px;
+  margin: 32px auto;
+  padding: 36px 44px 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(28, 25, 23, 0.04),
+    0 8px 32px -8px rgba(28, 25, 23, 0.08);
+}
+
+/* Deck breadcrumb: monospace, mostra só os 2 últimos segmentos via JS */
+.mnw-deck {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo,
+    Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #a8a29e;
+  margin-bottom: 28px;
+}
+
+/* Front Q&A: serif, centralizada, espaço generoso */
+.mnw-front {
+  font-family: "Charter", "Iowan Old Style", "Apple Garamond", Baskerville,
+    "Source Serif Pro", "Source Serif", Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #1c1917;
+  text-align: center;
+  margin: 16px 0 24px;
+  letter-spacing: -0.005em;
+}
+
+/* Mesma pergunta no verso, mas como contexto silencioso */
+.mnw-front.is-muted {
+  font-size: 15px;
+  color: #78716c;
+  font-style: italic;
+  font-weight: 400;
+  text-align: left;
+  margin: 0 0 16px;
+  letter-spacing: 0;
+}
+
+/* Divisor curto e centrado, não um hr cheio */
+.mnw-divider {
+  border: 0;
+  height: 1px;
+  width: 48px;
+  background: #d6d3d1;
+  margin: 24px auto;
+}
+
+/* Resposta (Q&A) e enunciado cloze: serif, esquerda */
+.mnw-back {
+  font-family: "Charter", "Iowan Old Style", "Apple Garamond", Baskerville,
+    Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  line-height: 1.5;
+  color: #1c1917;
+  font-weight: 400;
+  margin: 8px 0;
+}
+
+/* Cloze front pode ser longo: mantém esquerda e tipografia menor */
+.mnw-cloze .mnw-back {
+  font-size: 21px;
+  text-align: left;
+  margin: 16px 0 8px;
+}
+
+/* Verso Extra: marginalia em sans, menor, borda lateral fina */
+.mnw-extra {
+  margin-top: 24px;
+  padding-left: 16px;
+  border-left: 2px solid #e7e5e4;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #57534e;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+    sans-serif;
+}
+
+.mnw-extra :first-child { margin-top: 0; }
+.mnw-extra :last-child  { margin-bottom: 0; }
+.mnw-extra ul, .mnw-extra ol { margin: 6px 0 6px 18px; padding: 0; }
+.mnw-extra li { margin: 3px 0; }
+.mnw-extra strong { color: #1c1917; font-weight: 600; }
+.mnw-extra em { color: #44403c; }
+.mnw-extra code {
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo,
+    Consolas, monospace;
+  font-size: 0.9em;
+  background: #f5f5f4;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #44403c;
+}
+
+/* Rodapé: link de texto com seta, sem botão */
+.mnw-footer {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid #f5f5f4;
+  display: flex;
+  justify-content: flex-end;
+}
+.mnw-obsidian {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6c5ce7;
+  text-decoration: none;
+  letter-spacing: 0.005em;
+  transition: color 0.15s ease;
+}
+.mnw-obsidian:hover { color: #5648c2; }
+.mnw-obsidian::after { content: " →"; }
+
+/* Cloze: efeito marca-texto em gradiente, não pill */
+.mnw-cloze .cloze {
+  background: linear-gradient(transparent 62%, #fde68a 62%);
+  font-weight: 500;
+  color: #1c1917;
+  padding: 0 2px;
+}
+
+/* Anki night mode (Anki injeta .nightMode no body).
+ * Direção: warm black, elevação por inset highlight no shell em vez de
+ * sombra (sombra preta em preto não rende), cloze translúcido pra preservar
+ * o gesto de marca-texto do light. */
+.nightMode .card,
+.night_mode .card {
+  color: #e7e5e4;
+  background: #0f0e10;
+}
+.nightMode .mnw-shell {
+  background: #1c1b1f;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.nightMode .mnw-deck { color: #a8a29e; }
+.nightMode .mnw-front { color: #f5f5f4; }
+.nightMode .mnw-front.is-muted { color: #a8a29e; }
+.nightMode .mnw-back { color: #f5f5f4; }
+.nightMode .mnw-divider { background: #3a3637; }
+.nightMode .mnw-extra {
+  color: #d6d3d1;
+  border-left-color: #3a3637;
+}
+.nightMode .mnw-extra strong { color: #fafaf9; }
+.nightMode .mnw-extra em { color: #e7e5e4; }
+.nightMode .mnw-extra code {
+  background: #27272a;
+  color: #e7e5e4;
+}
+.nightMode .mnw-footer { border-top-color: #27272a; }
+.nightMode .mnw-obsidian { color: #a5a3ff; }
+.nightMode .mnw-obsidian:hover { color: #c7c5ff; }
+.nightMode .mnw-cloze .cloze {
+  background: linear-gradient(transparent 62%, rgba(251, 191, 36, 0.22) 62%);
+  color: #fef3c7;
+  font-weight: 500;
+}

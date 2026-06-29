@@ -1,0 +1,15 @@
+{
+  "name": "medical-notes-workbench",
+  "version": "0.1.0",
+  "description": "Gemini CLI extension packaging for medical notes creation and processing.",
+  "private": true,
+  "engines": {
+    "node": ">=20.17.0"
+  },
+  "dependencies": {
+    "mddb": "^0.9.5"
+  },
+  "overrides": {
+    "sqlite3": "6.0.1"
+  }
+}

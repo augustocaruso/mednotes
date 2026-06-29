@@ -1,0 +1,80 @@
+{
+  "adapter": "antigravity",
+  "agent_count": 5,
+  "agents": [
+    {
+      "description": "Semantic raw-chat triager for the Medical Notes Workbench process-chats workflow. Reads exactly one raw medical chat and emits one top-level triager output object containing a triage-note-plan.v2 for the durable semantic units found in that raw chat. Does not decide existing-coverage, merge, or canonical winner.",
+      "display_name": "Medical Chat Triager",
+      "id": "med-chat-triager",
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.triage-note-plan.v2",
+        "medical-notes-workbench.subagent-run-receipt.v1"
+      ],
+      "runtime_model": "Gemini 3.5 Flash (High)",
+      "source_files": [
+        "agents/med-chat-triager.md"
+      ]
+    },
+    {
+      "description": "Make medical Anki flashcards from notes/chats/material using Twenty Rules + user Anki MCP.",
+      "display_name": "Medical Flashcard Maker",
+      "id": "med-flashcard-maker",
+      "model": "antigravity/gemini-3.1-pro",
+      "model_tier": "specialist",
+      "runtime_contracts": [
+        "medical-notes-workbench.flashcards-fsm-result.v1"
+      ],
+      "runtime_model": "Gemini 3.1 Pro (High)",
+      "source_files": [
+        "agents/med-flashcard-maker.md"
+      ]
+    },
+    {
+      "description": "Writes Wiki_Medicina notes from triaged raw chats using note_plan, taxonomy, provenance, and Padrão Ouro.",
+      "display_name": "Medical Knowledge Architect",
+      "id": "med-knowledge-architect",
+      "model": "antigravity/gemini-3.1-pro",
+      "model_tier": "specialist",
+      "runtime_contracts": [
+        "medical-notes-workbench.packaged-agent-template.v1",
+        "medical-notes-workbench.specialist-task-run-receipt.v1"
+      ],
+      "runtime_model": "Gemini 3.1 Pro (High)",
+      "source_files": [
+        "agents/med-knowledge-architect.md"
+      ]
+    },
+    {
+      "description": "Curates vocabulary DB meanings, aliases, contextual link work items, and graph semantics.",
+      "display_name": "Medical Link Graph Curator",
+      "id": "med-link-graph-curator",
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.note-semantic-ingestion.v1"
+      ],
+      "runtime_model": "Gemini 3.5 Flash (High)",
+      "source_files": [
+        "agents/med-link-graph-curator.md"
+      ]
+    },
+    {
+      "description": "Operational gate after publish-batch dry-run; checks manifest, destinations, collisions, batch consistency, raw status timing, final linker plan.",
+      "display_name": "Medical Publish Guard",
+      "id": "med-publish-guard",
+      "model": "antigravity/gemini-3.5-flash",
+      "model_tier": "fast",
+      "runtime_contracts": [
+        "medical-notes-workbench.publish-operation-result.v1"
+      ],
+      "runtime_model": "Gemini 3.5 Flash (High)",
+      "source_files": [
+        "agents/med-publish-guard.md"
+      ]
+    }
+  ],
+  "schema": "mednotes.generated-antigravity-adapter.v1",
+  "source_contract": "contracts/agents.json"
+}

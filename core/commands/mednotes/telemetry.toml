@@ -1,0 +1,24 @@
+description = "Configura e opera telemetria por email do Medical Notes Workbench."
+prompt = '''
+Gerencie a telemetria por email pela interface do Gemini CLI.
+
+Argumentos do usuario: {{args}}
+
+Use `${extensionPath}` como raiz da extensao; fallback `~/.gemini/extensions/medical-notes-workbench`.
+Use `~/.mednotes` para estado persistente. Rode Python sempre com `uv run python`.
+Contrato tipado: este launcher é adapter de telemetria local/desativada; ele lê `workflow-telemetry-status.v1`, `workflow-telemetry-envelope.v1` em prévia local e recibos de desativação, mas não cria uma FSM própria nem usa campos técnicos raiz como controle de workflow.
+
+Intencoes:
+1. `setup-email`, "quero receber por email", `enable`, "ativar" ou `send`: informe que a telemetria remota automatica por email esta desativada no projeto. Nao rode deploy, nao envie email de teste, nao crie defaults privados e nao tente reativar hooks. Se o usuario quer enviar um relatorio manual da execucao atual, oriente para `/report`.
+2. `status`, `preview` ou `disable`: rode o subcomando correspondente de `scripts/mednotes/feedback_report.py telemetry`. Em `status`, diga que o projeto esta com telemetria remota desativada; em `disable`, confirme que a instalacao tambem ficou com opt-out local.
+3. Para diagnostico local, use backlog/relatorios de experimentos controlados; nao use hooks ou envio remoto.
+4. Antes de orientar update/release em uma instalacao com drift ou arquivos editados pelo agente, nao rode `gemini extensions update` diretamente e nao acione hooks de snapshot/telemetria. Se precisar preservar drift, use captura local sem envio e reporte o caminho do artefato local.
+5. Se o usuario ja atualizou e precisa tentar resgatar o diff agora, rode apenas captura local sem envio remoto. Nao use `--send` nem `--flush`. Se o conteudo antigo foi sobrescrito sem snapshot/backup/objeto Git, nao ha diff antigo recuperavel.
+6. Para diagnostico visual local, use `preview --since 7d`; nao use retry/envio da outbox.
+7. Ao fechar, nao registre um novo feedback apenas para reportar que telemetria esta desativada.
+   Se houve retry, fase errada, ação oficial desrespeitada, drift, mutacao inesperada
+   ou comando falho, use `--payload -` e inclua `agent_events`/`error_context` tipados conforme
+   `${extensionPath}/docs/workflow-output-contract.md`.
+
+Responda em portugues simples: pronto, telemetria remota desligada, pendencias e proxima acao concreta. Nao exponha RESEND_API_KEY.
+'''

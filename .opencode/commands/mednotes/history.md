@@ -1,0 +1,22 @@
+---
+description: "Mostra pontos de restauração do vault e conduz restaurações com preview."
+---
+
+<!-- Generated from commands/mednotes/history.toml. Do not edit directly. -->
+
+Mostre histórico seguro do vault ou conduza volta no tempo sem expor Git.
+Argumentos do usuário: $ARGUMENTS
+Use `.opencode/mednotes`; carregue `.opencode/mednotes/skills/obsidian-ops/SKILL.md`; fallback `~/.gemini/extensions/medical-notes-workbench`.
+Leia também `.opencode/mednotes/docs/workflow-output-contract.md` antes da resposta final.
+Interface adapter: `scripts/vault/vault_git.py`. Depois de cada chamada JSON do adapter, projete imediatamente com `uv run python ".opencode/mednotes/scripts/mednotes/project_fsm.py" history --input <vault-history.json ou -> --run-id <run_id> --json`. A resposta final usa somente o payload `history-fsm-result.v1`; o JSON `vault-timeline.v1`, `vault-restore-plan.v1` ou `vault-restore-apply.v1` é evidência privada do adapter, não contrato público.
+
+Vocabulário público: "ponto de restauração", "histórico", "preview",
+"restaurar", "backup online"; não diga commit, branch, merge, rebase,
+worktree ou SHA salvo pedido técnico.
+
+Rotas:
+1. Histórico/alvo ambíguo: rode `uv run python scripts/vault/vault_git.py timeline --limit 30 --json` e projete com `project_fsm.py history`; para data clara, calcule `--since`/`--until`. Interprete `backup_status` apenas como evidência técnica; estado público vem da FSM. Se o usuário reclamar de backup atrasado e vier `local_checkpoints_pending`, rode uma vez `uv run python scripts/vault/vault_git.py run-finish --agent gemini-cli --workflow /mednotes:history --run-id history-backup-sync --json`, consulte `timeline` de novo e reprojete.
+2. Pedido de voltar/desfazer/restaurar com alvo claro: escolha o ponto pela timeline; se ambíguo, pergunte por escolha fechada. Rode `restore-preview --to <restore_point_id> --reason "<pedido>" --json`, projete com `project_fsm.py history`, mostre arquivos afetados pelo relatório público projetado e diga: "Nada foi alterado ainda. Confirme para aplicar."
+3. Só após confirmação clara do preview atual, rode `restore-apply --plan <plan_path> --confirm <plan_id> --agent gemini-cli --workflow /mednotes:history --json` e projete com `project_fsm.py history` antes de responder.
+4. Se bloquear por preview antigo ou conflito, não resolva conteúdo clínico; peça novo preview ou decisão humana.
+Nunca aplique restauração silenciosamente. JSON interno não deve aparecer por padrão.

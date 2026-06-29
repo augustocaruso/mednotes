@@ -1,0 +1,22 @@
+description = "Atualiza somente WikiLinks no corpo da Wiki_Medicina."
+prompt = '''
+Atualize somente os WikiLinks no corpo das notas da Wiki_Medicina.
+
+Argumentos do usuario: {{args}}
+
+Use a skill `link-medical-wiki` e carregue `${extensionPath}/skills/obsidian-ops/SKILL.md`.
+Responda pelo contrato `${extensionPath}/docs/workflow-output-contract.md`.
+
+Invariantes do launcher:
+- Este comando e o modo estreito de `/mednotes:link` para corpo do texto.
+- Rode `wiki/cli.py run-linker --diagnose --no-related-notes --json` para montar
+  o plano sem mutar notas.
+- Aplique somente se o diagnostico estiver coerente e sem blockers:
+  `wiki/cli.py run-linker --apply --no-related-notes --diagnosis <json> --json`.
+- O apply nao chama LLM nem recalcula decisoes contextuais.
+- Nao chame `related-notes-sync` e nao reescreva `## 🔗 Notas Relacionadas`.
+- Este workflow nao corrige estilo, YAML/status, publicacao ou taxonomia.
+- Nao faca regex manual para linkar notas.
+- Nao mostre JSON bruto por padrao; resuma links no corpo, vocabulario,
+  blockers, warnings e proxima acao.
+'''

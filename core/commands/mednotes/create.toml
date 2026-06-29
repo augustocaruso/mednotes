@@ -1,0 +1,22 @@
+description = "Cria uma nota medica didatica em Markdown."
+prompt = """
+Crie uma nota medica didatica em Markdown a partir do pedido do usuario.
+
+Argumentos do usuario: {{args}}
+
+Use `create-medical-note`; se tocar vault, carregue `${extensionPath}/skills/obsidian-ops/SKILL.md`.
+Para Wiki_Medicina, carregue `knowledge-architect` e `workflow-output-contract.md`.
+
+Launcher:
+1. Identifique tema, objetivo de estudo, publico-alvo e nivel de detalhe a partir de `{{args}}`.
+2. Se faltar o tema central, pergunte antes de escrever.
+3. Produza Markdown pronto para Obsidian seguindo a skill.
+4. Se fizer sentido, inclua "Pontos visuais sugeridos" para futuro `/mednotes:enrich`.
+5. Se o usuário pedir arquivo, trate a criação como contrato mutante mínimo:
+   prévia, confirmação explícita, sem sobrescrever sem decisão humana, e proteção do vault ativa.
+6. Ao salvar dentro da Wiki, registre `medical-notes-workbench.link-trigger-context.v1`
+   para `/mednotes:link`; se não puder, pare com retomada oficial.
+7. Ao fechar, registre feedback local com `scripts/mednotes/feedback_report.py record --workflow /mednotes:create --agent`.
+   Se houve retry, fase errada, ação oficial desrespeitada, drift, mutação ou comando falho,
+   use `--payload -` com `agent_events` e `error_context` tipados.
+"""

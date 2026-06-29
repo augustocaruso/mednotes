@@ -1,0 +1,70 @@
+{
+  "agents": {
+    "output_dir": ".opencode/agents",
+    "source_contract": "contracts/agents.json",
+    "source_dir": "agents"
+  },
+  "commands": {
+    "output_dir": ".opencode/commands",
+    "source_dir": "commands"
+  },
+  "config": {
+    "instructions": [
+      ".opencode/mednotes/AGENTS.md"
+    ],
+    "output": ".opencode/opencode.json",
+    "plugin_path": "./plugins/mednotes-fsm.mjs"
+  },
+  "manifest": {
+    "output": ".opencode/mednotes.generated.json"
+  },
+  "plugin": {
+    "id": "mednotes-fsm",
+    "output": ".opencode/plugins/mednotes-fsm.mjs",
+    "required_hooks": [
+      "config",
+      "experimental.chat.system.transform",
+      "tool.execute.before",
+      "tool.execute.after"
+    ],
+    "source": "scripts/hooks/mednotes_hook/adapters/opencode_plugin.mjs"
+  },
+  "runtime": {
+    "copy_files": [
+      "AGENTS.md",
+      "package-lock.json",
+      "package.json",
+      "pyproject.toml",
+      "uv.lock"
+    ],
+    "copy_trees": [
+      "agents",
+      "contracts",
+      "docs",
+      "hooks",
+      "scripts",
+      "skills",
+      "src"
+    ],
+    "output_dir": ".opencode/mednotes"
+  },
+  "schema": "mednotes.opencode-plugin-target.v1",
+  "smoke": {
+    "required_files": [
+      ".opencode/opencode.json",
+      ".opencode/mednotes/AGENTS.md",
+      ".opencode/mednotes/agents/med-knowledge-architect.md",
+      ".opencode/mednotes/docs/workflow-output-contract.md",
+      ".opencode/mednotes/hooks/hooks.json",
+      ".opencode/mednotes/scripts/hooks/mednotes_hook/fsm_directive.mjs",
+      ".opencode/mednotes/skills/fix-medical-wiki/SKILL.md",
+      ".opencode/plugins/mednotes-fsm.mjs",
+      ".opencode/plugins/mednotes_hook/adapters/harness_payload.mjs",
+      ".opencode/plugins/mednotes_hook/adapters/opencode_plugin.mjs",
+      ".opencode/plugins/mednotes_hook/domain/agent_directive_core.mjs",
+      ".opencode/agents/med-knowledge-architect.md",
+      ".opencode/commands/mednotes/fix-wiki.md"
+    ]
+  },
+  "target": "opencode"
+}
