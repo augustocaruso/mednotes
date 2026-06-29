@@ -11,13 +11,26 @@ hashes, recibos e validações, mas a experiência humana deve parecer direta.
 
 ## Instalação
 
-Instale o pacote npm:
+Enquanto o pacote `mednotes-opencode` ainda não estiver publicado no registry
+npm, instale pelo repo público GitHub:
+
+```bash
+npm install -g github:augustocaruso/mednotes
+```
+
+Registre o plugin no OpenCode apontando para o mesmo spec GitHub:
+
+```bash
+mednotes-opencode install --plugin github:augustocaruso/mednotes
+```
+
+Quando o pacote npm estiver publicado, o caminho equivalente pelo registry será:
 
 ```bash
 npm install -g mednotes-opencode
 ```
 
-Registre o plugin no OpenCode:
+E o registro do plugin poderá usar o spec curto:
 
 ```bash
 mednotes-opencode install
@@ -32,11 +45,18 @@ mednotes-opencode install --dry-run
 ```
 
 Depois disso, abra o OpenCode normalmente. O plugin é carregado pelo próprio
-OpenCode como pacote npm e sincroniza a configuração de runtime no boot.
+OpenCode como pacote npm/GitHub e sincroniza a configuração de runtime no boot.
 
 ## Atualização
 
-Atualize como qualquer pacote npm:
+Se instalado pelo GitHub, atualize reinstalando o spec público:
+
+```bash
+npm install -g github:augustocaruso/mednotes
+mednotes-opencode install --plugin github:augustocaruso/mednotes
+```
+
+Quando o pacote registry estiver publicado, atualize como qualquer pacote npm:
 
 ```bash
 npm update -g mednotes-opencode
