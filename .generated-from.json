@@ -1,7 +1,7 @@
 {
   "allowlist": "public.allowlist.json",
   "allowlist_sha256": "c7e419468df20ac40f0f294043c69daf2f70be3c6cc0984c5728b83a2a2d5c52",
-  "output_sha256": "9d2c0f02605a1a1af54d5aa989caca2632f746ee0cd43ec7563b053053504733",
+  "output_sha256": "e976aa5009273a09a1ce64c60fac97756d33b05b3b386db04fc6c38bf05f6a2d",
   "public_branch": "main",
   "public_repo": "augustocaruso/mednotes",
   "schema": "mednotes.generated-public-tree.v2"

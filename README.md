@@ -11,63 +11,39 @@ hashes, recibos e validações, mas a experiência humana deve parecer direta.
 
 ## Instalação
 
-Enquanto o pacote `mednotes-opencode` ainda não estiver publicado no registry
-npm, instale pelo repo público GitHub:
-
-```bash
-npm install -g github:augustocaruso/mednotes
-```
-
-Registre o plugin no OpenCode apontando para o mesmo spec GitHub:
-
-```bash
-mednotes-opencode install --plugin github:augustocaruso/mednotes
-```
-
-Quando o pacote npm estiver publicado, o caminho equivalente pelo registry será:
+Instale pelo pacote npm público:
 
 ```bash
 npm install -g mednotes-opencode
 ```
 
-E o registro do plugin poderá usar o spec curto:
+Registre a superfície MedNotes no OpenCode:
 
 ```bash
 mednotes-opencode install
 ```
 
-Esse comando atualiza `~/.config/opencode/opencode.json` no macOS/Linux, ou o
-caminho equivalente em `%APPDATA%` no Windows. Ele cria backup antes de alterar
-um arquivo existente e pode ser auditado sem escrever nada:
+Esse comando instala comandos, agentes, runtime e hook em
+`~/.config/opencode` no macOS/Linux, ou no caminho equivalente em `%APPDATA%`
+no Windows. Ele mescla `opencode.json`, cria backup antes de alterar um arquivo
+existente e pode ser auditado sem escrever nada:
 
 ```bash
 mednotes-opencode install --dry-run
 ```
 
 Depois disso, abra o OpenCode normalmente. O plugin é carregado pelo próprio
-OpenCode como pacote npm/GitHub e sincroniza a configuração de runtime no boot.
+OpenCode a partir do arquivo local instalado em `plugins/mednotes-fsm.mjs` e
+sincroniza a configuração de runtime no boot.
 
 ## Atualização
 
-Se instalado pelo GitHub, atualize reinstalando o spec público:
-
-```bash
-npm install -g github:augustocaruso/mednotes
-mednotes-opencode install --plugin github:augustocaruso/mednotes
-```
-
-Quando o pacote registry estiver publicado, atualize como qualquer pacote npm:
+Atualize como qualquer pacote npm e rode o instalador novamente para copiar a
+nova superfície gerada para o diretório de configuração do OpenCode:
 
 ```bash
 npm update -g mednotes-opencode
-```
-
-Se o `opencode.json` usar o spec `mednotes-opencode`, o OpenCode também pode
-resolver versões novas pelo mecanismo nativo de plugins npm. Para congelar uma
-versão, use um spec com versão explícita no instalador:
-
-```bash
-mednotes-opencode install --plugin mednotes-opencode@0.1.0
+mednotes-opencode install
 ```
 
 ## Configuração
@@ -149,7 +125,9 @@ O pacote npm exporta o plugin OpenCode por:
 
 Arquivos principais:
 
-- `.opencode/`: plugin, agentes, comandos e runtime OpenCode gerados.
+- `.opencode/`: plugin, agentes, comandos e runtime OpenCode gerados. O
+  instalador copia essa superfície para o diretório de configuração do
+  OpenCode sem sobrescrever a configuração inteira do usuário.
 - `core/`: fontes canônicas públicas de agentes, comandos e skills.
 - `contracts/`: contratos de agentes usados pelos geradores.
 - `adapters/`: projeções secundárias mantidas por compatibilidade.

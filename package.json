@@ -1,6 +1,6 @@
 {
   "name": "mednotes-opencode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MedNotes plugin for OpenCode: FSM-first medical notes workflows for Obsidian and Anki.",
   "type": "module",
   "private": false,
